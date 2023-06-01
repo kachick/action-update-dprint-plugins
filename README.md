@@ -46,4 +46,4 @@ jobs:
 
 ## Motivation
 
-- [renovate solution is here](https://github.com/kachick/renovate-config-dprint), but it [can not update some plugins](https://github.com/kachick/renovate-config-dprint/issues/11) as example of dprint-plugin-prettier
+- A solution with [renovatebot](https://github.com/renovatebot/renovate) is [here](https://github.com/kachick/renovate-config-dprint), but it [may not update some plugins](https://github.com/kachick/renovate-config-dprint/issues/11) like [dprint-plugin-prettier](https://github.com/dprint/dprint-plugin-prettier)
