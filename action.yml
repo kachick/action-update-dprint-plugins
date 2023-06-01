@@ -11,10 +11,14 @@ inputs:
   github-token:
     description: 'The token will be used to create PR'
     required: true
-  auto-merge:
-    description: 'The updating PR will be auto merged if no change exist even after `dprint fmt`'
-    required: false
-    default: 'true'
+  # auto-merge:
+  #   description: 'The updating PR will be auto merged if no change exist even after `dprint fmt`'
+  #   required: false
+  #   default: 'true'
+outputs:
+  pr_url:
+    description: 'Created PR URL'
+    value: ${{ steps.pr.outputs.pr_url  }}
 
 runs:
   using: 'composite'
@@ -71,9 +75,9 @@ runs:
       env:
         GITHUB_TOKEN: '${{ inputs.github-token }}'
       shell: bash
-    - name: Auto merge
-      if: ${{ inputs.auto-merge == 'true' && steps.update_plugins.outputs.update == 'true' && steps.fmt.outputs.fmt == 'false' }}
-      run: gh pr merge --auto --squash "${{ steps.pr.outputs.pr_url }}"
-      shell: bash
-      env:
-        GITHUB_TOKEN: '${{ inputs.github-token }}'
+    # - name: Auto merge
+    #   if: ${{ inputs.auto-merge == 'true' && steps.update_plugins.outputs.update == 'true' && steps.fmt.outputs.fmt == 'false' }}
+    #   run: gh pr merge --auto --squash "${{ steps.pr.outputs.pr_url }}"
+    #   shell: bash
+    #   env:
+    #     GITHUB_TOKEN: '${{ inputs.github-token }}'

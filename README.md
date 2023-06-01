@@ -4,6 +4,8 @@
 
 GitHub Action to update [dprint](https://github.com/dprint/dprint) plugins in `dprint.json`
 
+This project is in the experimental stage.
+
 ## Usage
 
 An example workflow in your repository, assuming it is named `.github/workflows/dprint-update-plugin.yml`.
@@ -34,22 +36,25 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: kachick/action-update-dprint-plugins@main
+      - id: update-dprint-plugins
+        uses: kachick/action-update-dprint-plugins@main
         with:
           base-branch: 'main'
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-          # auto-merge: false # default: true
+      # Enable `Allow auto-merge` in your repository settings if you need following steps
+      - name: Merge sent PR
+        if: ${{ steps.update-dprint-plugins.outputs.pr_url != '' }}
+        run: gh pr merge --auto "${{ steps.update-dprint-plugins.outputs.pr_url }}"
 ```
 
 ## Parameters
 
 All options should be specified with string. So true/false should be 'true'/'false'
 
-| name         | default | options                           | description                                                                    |
-| ------------ | ------- | --------------------------------- | ------------------------------------------------------------------------------ |
-| base-branch  | (null)  | e.g 'main'                        | The branch into which you want updating PR merged                              |
-| github-token | (null)  | e.g "${{ secrets.GITHUB_TOKEN }}" | The token will be used to create PR                                            |
-| auto-merge   | 'true'  | 'true', 'false'                   | The updating PR will be auto merged if no change exist even after `dprint fmt` |
+| name         | default | options                           | description                                       |
+| ------------ | ------- | --------------------------------- | ------------------------------------------------- |
+| base-branch  | (null)  | e.g 'main'                        | The branch into which you want updating PR merged |
+| github-token | (null)  | e.g "${{ secrets.GITHUB_TOKEN }}" | The token will be used to create PR               |
 
 ## Motivation
 
