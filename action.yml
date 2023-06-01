@@ -43,7 +43,7 @@ runs:
     - name: Create PR
       run: gh pr create --fill --base ${{ inputs.base-branch}}
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
       shell: bash
     # - name: Auto merge
     #   run: ...
