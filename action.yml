@@ -40,13 +40,23 @@ runs:
     - name: Update plugins
       run: |
         ~/.dprint/bin/dprint config update
-        $(( (git add --intent-to-add . && git diff --exit-code) ? (echo 'update=false' >> $GITHUB_STATE) : (echo 'update=true' >> $GITHUB_STATE && git commit -a -m 'chore: \`dprint config update\`') ))
+        if git add --intent-to-add . && git diff --exit-code; then
+          echo 'update=false' >> $GITHUB_STATE
+        else
+          echo 'update=true' >> $GITHUB_STATE
+          git commit -a -m 'chore: \`dprint config update\`'
+        fi
       shell: bash
     - name: fmt
       if: ${{ env.STATE_update == 'true' }}
       run: |
         ~/.dprint/bin/dprint fmt
-        $(( (git add --intent-to-add . && git diff --exit-code) ? (echo 'fmt=false' >> $GITHUB_STATE) : (echo 'fmt=true' >> $GITHUB_STATE && git commit -a -m 'chore: \`dprint fmt\`') ))
+        if git add --intent-to-add . && git diff --exit-code; then
+          echo 'fmt=false' >> $GITHUB_STATE
+        else
+          echo 'fmt=true' >> $GITHUB_STATE
+          git commit -a -m 'chore: \`dprint fmt\`'
+        fi
       shell: bash
     - name: Create PR
       if: ${{ env.STATE_update == 'true' || env.STATE_fmt == 'true' }}
