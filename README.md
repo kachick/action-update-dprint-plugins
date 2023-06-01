@@ -44,7 +44,9 @@ jobs:
       # Enable `Allow auto-merge` in your repository settings if you need following steps
       - name: Merge sent PR
         if: ${{ steps.update-dprint-plugins.outputs.pr_url != '' }}
-        run: gh pr merge --auto "${{ steps.update-dprint-plugins.outputs.pr_url }}"
+        run: gh pr merge --auto --squash --delete-branch "${{ steps.update-dprint-plugins.outputs.pr_url }}"
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 ```
 
 ## Parameters
