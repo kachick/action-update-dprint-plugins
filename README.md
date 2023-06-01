@@ -43,13 +43,14 @@ jobs:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
       # Enable `Allow auto-merge` in your repository settings if you need following steps
       - name: Merge sent PR
-        if: ${{ steps.update-dprint-plugins.outputs.pr_url != '' }}
+        # Merge if `dprint fmt` does not make any diff even after updating plugins
+        if: ${{ steps.update-dprint-plugins.outputs.pr_url != '' && steps.update-dprint-plugins.outputs.fmt == 'false' }}
         run: gh pr merge --auto --squash --delete-branch "${{ steps.update-dprint-plugins.outputs.pr_url }}"
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 ```
 
-## Parameters
+## Input Parameters
 
 All options should be specified with string. So true/false should be 'true'/'false'
 
@@ -57,6 +58,13 @@ All options should be specified with string. So true/false should be 'true'/'fal
 | ------------ | ------- | --------------------------------- | ------------------------------------------------- |
 | base-branch  | (null)  | e.g 'main'                        | The branch into which you want updating PR merged |
 | github-token | (null)  | e.g "${{ secrets.GITHUB_TOKEN }}" | The token will be used to create PR               |
+
+## Outputs
+
+| name   | patterns                                        | description                                                         |
+| ------ | ----------------------------------------------- | ------------------------------------------------------------------- |
+| pr_url | e.g. '`https://github.com/owner/repos/pull/42`' | Sent PR URL                                                         |
+| fmt    | 'true'/'false`                                  | Return true if diff was made in `dprint fmt` after updating plugins |
 
 ## Motivation
 

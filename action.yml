@@ -15,6 +15,9 @@ outputs:
   pr_url:
     description: 'Created PR URL'
     value: ${{ steps.pr.outputs.pr_url  }}
+  fmt:
+    description: 'diff was made with `dprint fmt` after updating plugins'
+    value: ${{ steps.fmt.outputs.fmt  }}
 
 runs:
   using: 'composite'
