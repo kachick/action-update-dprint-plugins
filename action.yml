@@ -5,8 +5,11 @@ branding:
   icon: 'arrow-up-circle'
   color: 'blue'
 inputs:
+  base-branch:
+    description: 'The branch into which you want updating PR merged'
+    required: true
   auto-merge:
-    description: 'if no change exist even after `dprint fmt`, the updateing PR will be auto merged'
+    description: 'The updating PR will be auto merged if no change exist even after `dprint fmt`'
     required: false
     default: 'true'
 
@@ -21,18 +24,27 @@ runs:
       run: |
         curl -fsSL https://dprint.dev/install.sh | sh -s '' > /dev/null 2>&1
         echo "/home/runner/.dprint/bin" >> $GITHUB_PATH
-    - name: Checkout
-      run: ...
+    - name: Create branch
+      run: |
+        timestamp=`date +"%Y%m%d-%H%M-UTC"`
+        git switch -c "action-update-dprint-plugins-$timestamp"
       shell: bash
     - name: Update plugins
-      run: ~/.dprint/bin/dprint config update
+      run: |
+        ~/.dprint/bin/dprint config update
+        git add .
+        git commit -a -m 'chore: `dprint config update`'
       shell: bash
-    - name: Commit
-      run: ...
+    - name: fmt
+      run: |
+        ~/.dprint/bin/dprint fmt
+        (git add --intent-to-add . && git diff --exit-code) || git commit -a -m 'chore: `dprint fmt`'
       shell: bash
     - name: Create PR
-      run: ...
+      run: gh pr create --fill --base ${{ inputs.base-branch}}
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: bash
-    - name: Auto merge
-      run: ...
-      shell: bash
+    # - name: Auto merge
+    #   run: ...
+    #   shell: bash

@@ -2,11 +2,11 @@
 
 [![CI](https://github.com/kachick/action-update-dprint-plugins/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/kachick/action-update-dprint-plugins/actions/workflows/validate.yml?query=branch%3Amain++)
 
-Update dprint plugins in dprint.json config file
+GitHub Action to update [dprint](https://github.com/dprint/dprint) plugins in `dprint.json`
 
 ## Usage
 
-For example of `.github/workflows/dprint-update-plugin.yml`
+An example workflow in your repository, assuming it is named `.github/workflows/dprint-update-plugin.yml`.
 
 ```yaml
 name: Update dprint plugins
@@ -16,12 +16,13 @@ on:
     paths:
       - '.github/workflows/dprint-update-plugin.yml'
   schedule:
-  - cron: '0 17 * * *'
+    - cron: '0 17 * * *'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 permissions:
   contents: read
+  pull-requests: write
 
 # Allow one concurrent updates
 concurrency:
@@ -34,15 +35,19 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: kachick/action-update-dprint-plugins@v0.1.0
-        # with:
+        with:
+          base-branch: 'main'
           # auto-merge: false # default: true
 ```
 
 ## Parameters
 
-| name       | default | options                  | description                                                                      |
-| ---------- | ------- | ------------------------ | -------------------------------------------------------------------------------- |
-| auto-merge | 'true'  | 'true', 'false' # string | if no change exist even after `dprint fmt`, the updateing PR will be auto merged |
+All options should be specified with string. So true/false should be 'true'/'false'
+
+| name        | default | options         | description                                                                    |
+| ----------- | ------- | --------------- | ------------------------------------------------------------------------------ |
+| base-branch | (null)  | e.g 'main'      | The branch into which you want updating PR merged                              |
+| auto-merge  | 'true'  | 'true', 'false' | The updating PR will be auto merged if no change exist even after `dprint fmt` |
 
 ## Motivation
 
