@@ -11,6 +11,14 @@ inputs:
   github-token:
     description: 'The token will be used to create PR'
     required: true
+  dprint-version:
+    description: 'Specific dprint version to use (ex. 0.36.1)'
+    required: false
+    default: ''
+  config-path:
+    description: 'Specific dprint config to use (ex. dprint-ci.json)'
+    required: true
+    default: 'dprint.json'
 outputs:
   pr_url:
     description: 'Created PR URL'
@@ -39,7 +47,7 @@ runs:
     - name: Install dprint
       shell: bash
       run: |
-        curl -fsSL https://dprint.dev/install.sh | sh -s > /dev/null 2>&1
+        curl -fsSL https://dprint.dev/install.sh | sh -s ${{ inputs.dprint-version }} > /dev/null 2>&1
         echo "/home/runner/.dprint/bin" >> $GITHUB_PATH
     - name: Create branch
       run: |
@@ -47,23 +55,25 @@ runs:
       shell: bash
     - id: update_plugins
       run: |
-        ~/.dprint/bin/dprint config update --yes
+        command=dprint config update --yes --config '${{ inputs.config-path }}'
+        $("~/.dprint/bin/${command}")
         if git add --intent-to-add . && git diff --exit-code; then
           echo 'update=false' >> $GITHUB_OUTPUT
         else
           echo 'update=true' >> $GITHUB_OUTPUT
-          git commit -a -m 'chore: `dprint config update --yes`'
+          git commit -a -m 'chore: `${command}`'
         fi
       shell: bash
     - id: fmt
       if: ${{ steps.update_plugins.outputs.update == 'true' }}
       run: |
-        ~/.dprint/bin/dprint fmt
+        command=dprint fmt --config '${{ inputs.config-path }}'
+        $("~/.dprint/bin/${command}")
         if git add --intent-to-add . && git diff --exit-code; then
           echo 'fmt=false' >> $GITHUB_OUTPUT
         else
           echo 'fmt=true' >> $GITHUB_OUTPUT
-          git commit -a -m 'chore: `dprint fmt`'
+          git commit -a -m 'chore: `${command}`'
         fi
       shell: bash
     - id: pr

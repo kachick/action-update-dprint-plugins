@@ -54,10 +54,12 @@ jobs:
 
 All options should be specified with string. So true/false should be 'true'/'false'
 
-| name         | default | options                           | description                                       |
-| ------------ | ------- | --------------------------------- | ------------------------------------------------- |
-| base-branch  | (null)  | e.g 'main'                        | The branch into which you want updating PR merged |
-| github-token | (null)  | e.g "${{ secrets.GITHUB_TOKEN }}" | The token will be used to create PR               |
+| name           | default       | options                           | description                                       |
+| -------------- | ------------- | --------------------------------- | ------------------------------------------------- |
+| base-branch    | (null)        | e.g 'main'                        | The branch into which you want updating PR merged |
+| github-token   | (null)        | e.g "${{ secrets.GITHUB_TOKEN }}" | The token will be used to create PR               |
+| dprint-version | (null)        | e.g '0.36.1'                      | Specific dprint version to use                    |
+| config-path    | 'dprint.json' | e.g 'dprint-ci.json'              | Specific dprint config to use                     |
 
 ## Outputs
 
