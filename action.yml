@@ -21,6 +21,11 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - name: git setting
+      run: |
+        git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git config --local user.name 'github-actions[bot]'
+      shell: bash
     # Referenced https://github.com/dprint/check/blob/2f1cf31537886c3bfb05591c031f7744e48ba8a1/action.yml#L16-L20
     - name: Install dprint
       shell: bash
