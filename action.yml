@@ -65,7 +65,7 @@ runs:
         GITHUB_TOKEN: '${{ inputs.github-token }}'
       shell: bash
     - name: Auto merge
-      if: ${{ inputs.auto-merge == 'true'  && (env.STATE_update == 'true' || env.STATE_fmt == 'true') }}
+      if: ${{ inputs.auto-merge == 'true' && env.STATE_update == 'true' && env.STATE_fmt == 'false' }}
       run: gh pr review --approve "$STATE_pr_url" && gh pr merge --auto --squash "$STATE_pr_url"
       shell: bash
       env:

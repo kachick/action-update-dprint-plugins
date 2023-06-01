@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: kachick/action-update-dprint-plugins@v0.1.0
+      - uses: kachick/action-update-dprint-plugins@main
         with:
           base-branch: 'main'
           github-token: "${{ secrets.GITHUB_TOKEN }}"
