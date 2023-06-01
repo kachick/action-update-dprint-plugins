@@ -39,7 +39,7 @@ runs:
       shell: bash
     - name: Update plugins
       run: |
-        ~/.dprint/bin/dprint config update
+        ~/.dprint/bin/dprint config update --yes
         if git add --intent-to-add . && git diff --exit-code; then
           echo 'update=false' >> $GITHUB_STATE
         else
