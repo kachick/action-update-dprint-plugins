@@ -37,35 +37,35 @@ runs:
         timestamp=`date +"%Y%m%d-%H%M-UTC"`
         git switch -c "action-update-dprint-plugins-$timestamp"
       shell: bash
-    - name: Update plugins
+    - id: update_plugins
       run: |
         ~/.dprint/bin/dprint config update --yes
         if git add --intent-to-add . && git diff --exit-code; then
-          echo 'update=false' >> $GITHUB_STATE
+          echo 'update=false' >> $GITHUB_OUTPUT
         else
-          echo 'update=true' >> $GITHUB_STATE
+          echo 'update=true' >> $GITHUB_OUTPUT
           git commit -a -m 'chore: \`dprint config update\`'
         fi
       shell: bash
-    - name: fmt
-      if: ${{ env.STATE_update == 'true' }}
+    - id: fmt
+      if: ${{ steps.update_plugins.outputs.update == 'true' }}
       run: |
         ~/.dprint/bin/dprint fmt
         if git add --intent-to-add . && git diff --exit-code; then
-          echo 'fmt=false' >> $GITHUB_STATE
+          echo 'fmt=false' >> $GITHUB_OUTPUT
         else
-          echo 'fmt=true' >> $GITHUB_STATE
+          echo 'fmt=true' >> $GITHUB_OUTPUT
           git commit -a -m 'chore: \`dprint fmt\`'
         fi
       shell: bash
     - name: Create PR
-      if: ${{ env.STATE_update == 'true' || env.STATE_fmt == 'true' }}
+      if: ${{ steps.update_plugins.outputs.update == 'true' || steps.fmt.outputs.fmt == 'true' }}
       run: echo "pr_url=$(gh pr create --fill --base ${{ inputs.base-branch}} --title 'Update dprint plugins' --body 'This PR has been created by https://github.com/kachick/action-update-dprint-plugins')" >> $GITHUB_STATE
       env:
         GITHUB_TOKEN: '${{ inputs.github-token }}'
       shell: bash
     - name: Auto merge
-      if: ${{ inputs.auto-merge == 'true' && env.STATE_update == 'true' && env.STATE_fmt == 'false' }}
+      if: ${{ inputs.auto-merge == 'true' && steps.update_plugins.outputs.update == 'true' && steps.fmt.outputs.fmt == 'false' }}
       run: gh pr review --approve "$STATE_pr_url" && gh pr merge --auto --squash "$STATE_pr_url"
       shell: bash
       env:
