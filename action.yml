@@ -55,8 +55,8 @@ runs:
       shell: bash
     - id: update_plugins
       run: |
-        command="dprint config update --yes --config '${{ inputs.config-path }}'"
-        "~/.dprint/bin/${command}"
+        command="dprint config update --yes --config ${{ inputs.config-path }}"
+        ~/.dprint/bin/${command}
         if git add --intent-to-add . && git diff --exit-code; then
           echo 'update=false' >> $GITHUB_OUTPUT
         else
@@ -67,8 +67,8 @@ runs:
     - id: fmt
       if: ${{ steps.update_plugins.outputs.update == 'true' }}
       run: |
-        command="dprint fmt --config '${{ inputs.config-path }}'"
-        "~/.dprint/bin/${command}"
+        command="dprint fmt --config ${{ inputs.config-path }}"
+        ~/.dprint/bin/${command}
         if git add --intent-to-add . && git diff --exit-code; then
           echo 'fmt=false' >> $GITHUB_OUTPUT
         else
