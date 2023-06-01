@@ -60,7 +60,7 @@ runs:
       shell: bash
     - name: Create PR
       if: ${{ env.STATE_update == 'true' || env.STATE_fmt == 'true' }}
-      run: gh pr create --fill --base ${{ inputs.base-branch}}
+      run: gh pr create --fill --base ${{ inputs.base-branch}} --title 'Update dprint plugins' --body 'This PR has been created by https://github.com/kachick/action-update-dprint-plugins'
       env:
         GH_TOKEN: '${{ inputs.github-token }}'
       shell: bash
