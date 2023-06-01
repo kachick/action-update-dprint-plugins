@@ -8,6 +8,9 @@ inputs:
   base-branch:
     description: 'The branch into which you want updating PR merged'
     required: true
+  github-token:
+    description: 'The token will be used to create PR'
+    required: true
   auto-merge:
     description: 'The updating PR will be auto merged if no change exist even after `dprint fmt`'
     required: false
@@ -43,7 +46,7 @@ runs:
     - name: Create PR
       run: gh pr create --fill --base ${{ inputs.base-branch}}
       env:
-        GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        GH_TOKEN: '${{ inputs.github-token }}'
       shell: bash
     # - name: Auto merge
     #   run: ...

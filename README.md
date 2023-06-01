@@ -37,6 +37,7 @@ jobs:
       - uses: kachick/action-update-dprint-plugins@v0.1.0
         with:
           base-branch: 'main'
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
           # auto-merge: false # default: true
 ```
 
@@ -44,10 +45,11 @@ jobs:
 
 All options should be specified with string. So true/false should be 'true'/'false'
 
-| name        | default | options         | description                                                                    |
-| ----------- | ------- | --------------- | ------------------------------------------------------------------------------ |
-| base-branch | (null)  | e.g 'main'      | The branch into which you want updating PR merged                              |
-| auto-merge  | 'true'  | 'true', 'false' | The updating PR will be auto merged if no change exist even after `dprint fmt` |
+| name         | default | options                           | description                                                                    |
+| ------------ | ------- | --------------------------------- | ------------------------------------------------------------------------------ |
+| base-branch  | (null)  | e.g 'main'                        | The branch into which you want updating PR merged                              |
+| github-token | (null)  | e.g "${{ secrets.GITHUB_TOKEN }}" | The token will be used to create PR                                            |
+| auto-merge   | 'true'  | 'true', 'false'                   | The updating PR will be auto merged if no change exist even after `dprint fmt` |
 
 ## Motivation
 

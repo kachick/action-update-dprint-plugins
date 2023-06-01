@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 concurrency:
   group: 'dprint'
@@ -27,3 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./
+        with:
+          base-branch: 'main'
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
