@@ -49,7 +49,7 @@ runs:
           echo 'update=false' >> $GITHUB_OUTPUT
         else
           echo 'update=true' >> $GITHUB_OUTPUT
-          git commit -a -m 'chore: \`dprint config update\`'
+          git commit -a -m 'chore: `dprint config update`'
         fi
       shell: bash
     - id: fmt
@@ -60,7 +60,7 @@ runs:
           echo 'fmt=false' >> $GITHUB_OUTPUT
         else
           echo 'fmt=true' >> $GITHUB_OUTPUT
-          git commit -a -m 'chore: \`dprint fmt\`'
+          git commit -a -m 'chore: `dprint fmt`'
         fi
       shell: bash
     - id: pr
