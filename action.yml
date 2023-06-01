@@ -73,7 +73,7 @@ runs:
       shell: bash
     - name: Auto merge
       if: ${{ inputs.auto-merge == 'true' && steps.update_plugins.outputs.update == 'true' && steps.fmt.outputs.fmt == 'false' }}
-      run: gh pr review --approve "${{ steps.pr.outputs.pr_url }}" && gh pr merge --auto --squash "${{ steps.pr.outputs.pr_url }}"
+      run: gh pr merge --auto --squash "${{ steps.pr.outputs.pr_url }}"
       shell: bash
       env:
         GITHUB_TOKEN: '${{ inputs.github-token }}'
