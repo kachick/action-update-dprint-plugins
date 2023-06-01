@@ -61,7 +61,7 @@ runs:
           echo 'update=false' >> $GITHUB_OUTPUT
         else
           echo 'update=true' >> $GITHUB_OUTPUT
-          git commit -a -m 'chore: `${command}`'
+          git commit -a -m "chore: \`${command}\`"
         fi
       shell: bash
     - id: fmt
@@ -73,7 +73,7 @@ runs:
           echo 'fmt=false' >> $GITHUB_OUTPUT
         else
           echo 'fmt=true' >> $GITHUB_OUTPUT
-          git commit -a -m 'chore: `${command}`'
+          git commit -a -m "chore: \`${command}\`"
         fi
       shell: bash
     - id: pr
