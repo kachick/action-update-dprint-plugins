@@ -1,0 +1,29 @@
+name: Validate
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/dependabot.yml'
+      - '.github/workflows/dprint.yml'
+      - '.github/workflows/dependency-review.yml'
+      - '.github/workflows/merge-bot-pr.yml'
+      - '.editorconfig'
+      - 'dprint.json'
+      - 'README.md'
+      - '.vscode/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: 'dprint'
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./

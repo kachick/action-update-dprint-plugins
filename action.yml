@@ -1,0 +1,38 @@
+name: 'action-update-dprint-plugins'
+description: 'Update dprint plugins in dprint.json config file'
+author: 'Kenichi Kamiya <kachick1@gmail.com>'
+branding:
+  icon: 'arrow-up-circle'
+  color: 'blue'
+inputs:
+  auto-merge:
+    description: 'if no change exist even after `dprint fmt`, the updateing PR will be auto merged'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    # Referenced https://github.com/dprint/check/blob/2f1cf31537886c3bfb05591c031f7744e48ba8a1/action.yml#L16-L20
+    - name: Install dprint
+      shell: bash
+      run: |
+        curl -fsSL https://dprint.dev/install.sh | sh -s '' > /dev/null 2>&1
+        echo "/home/runner/.dprint/bin" >> $GITHUB_PATH
+    - name: Checkout
+      run: ...
+      shell: bash
+    - name: Update plugins
+      run: ~/.dprint/bin/dprint config update
+      shell: bash
+    - name: Commit
+      run: ...
+      shell: bash
+    - name: Create PR
+      run: ...
+      shell: bash
+    - name: Auto merge
+      run: ...
+      shell: bash
