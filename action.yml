@@ -11,8 +11,9 @@ inputs:
   github-token:
     description: 'The token will be used to create PR'
     required: true
+    default: ${{ github.token }}
   dprint-version:
-    description: 'Specific dprint version to use (ex. 0.36.1)'
+    description: 'Specific dprint version to use (ex. 0.37.1)'
     required: false
     default: ''
   config-path:
