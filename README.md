@@ -36,7 +36,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - id: update-dprint-plugins
-        uses: kachick/action-update-dprint-plugins@v1-beta
+        uses: kachick/action-update-dprint-plugins@v1.0.0
         with:
           base-branch: 'main'
       # Enable `Allow auto-merge` in your repository settings if you need following steps
