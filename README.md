@@ -42,13 +42,20 @@ jobs:
           base-branch: 'main'
       # Enable `Allow auto-merge` in your repository settings if you need following steps
       - name: Merge sent PR
-        # Merge if `dprint fmt` does not make any diff even after updating plugins
+        # Checking `dprint fmt` did not make any diff even after updating plugins
         if: ${{ steps.update-dprint-plugins.outputs.pr_url != '' && steps.update-dprint-plugins.outputs.fmt == 'false' }}
         run: gh pr merge --auto --squash --delete-branch "${{ steps.update-dprint-plugins.outputs.pr_url }}"
         env:
           # Need to be replaced to your PAT if need to approve or need to trigger other actions
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 ```
+
+## Preparation
+
+Enable the following options in your repository settings
+
+- Enable `Allow GitHub Actions to create and approve pull requests`
+- Enable `Allow auto-merge` if you need auto merging
 
 ## Input Parameters
 
@@ -57,7 +64,7 @@ All options should be specified with string. So true/false should be 'true'/'fal
 | name           | default             | options                       | description                                              |
 | -------------- | ------------------- | ----------------------------- | -------------------------------------------------------- |
 | base-branch    | (null)              | e.g 'main'                    | The branch into which you want updating PR merged        |
-| github-token   | ${{ github.token }} | e.g "${{ secrets.YOUR_PAT }}" | The token will be used to create PR                      |
+| github-token   | ${{ github.token }} | e.g '${{ secrets.YOUR_PAT }}' | The token will be used to create PR                      |
 | dprint-version | (null)              | e.g '0.37.1'                  | Specific dprint version to use . Use latest if not given |
 | config-path    | 'dprint.json'       | e.g 'dprint-ci.json'          | Specific dprint config to use                            |
 
