@@ -51,6 +51,14 @@ jobs:
 
 ## Preparation
 
+Need to add following permissions if you use GITHUB_TOKEN
+
+```yaml
+permissions:
+  contents: write
+  pull-requests: write
+```
+
 Enable the following options in your repository settings
 
 - Enable `Allow GitHub Actions to create and approve pull requests`
