@@ -30,4 +30,3 @@ jobs:
       - uses: ./
         with:
           base-branch: 'main'
-          github-token: '${{ secrets.GITHUB_TOKEN }}'
