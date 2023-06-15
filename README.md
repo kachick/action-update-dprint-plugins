@@ -4,8 +4,6 @@
 
 GitHub Action to update [dprint](https://github.com/dprint/dprint) plugins in `dprint.json`
 
-This project is in the experimental stage.
-
 ## Usage
 
 An example workflow in your repository, assuming it is named `.github/workflows/dprint-update-plugin.yml`.
@@ -18,7 +16,8 @@ on:
     paths:
       - '.github/workflows/dprint-update-plugin.yml'
   schedule:
-    - cron: '0 17 * * *'
+    # Run at 17:00 UTC every Monday
+    - cron: '0 17 * * 1'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -26,9 +25,9 @@ permissions:
   contents: write
   pull-requests: write
 
-# Allow one concurrent updates
+# Allow one concurrent dprint updater
 concurrency:
-  group: 'dprint'
+  group: 'update-dprint'
   cancel-in-progress: true
 
 jobs:

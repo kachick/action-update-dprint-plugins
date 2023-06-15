@@ -18,7 +18,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: 'dprint'
+  group: 'update-dprint'
   cancel-in-progress: true
 
 jobs:
