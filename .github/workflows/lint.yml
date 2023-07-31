@@ -13,3 +13,16 @@ jobs:
         with:
           # Keep same version as used in *.nix
           dprint-version: '0.39.1'
+
+  typos:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # Keep same version as used in *.nix
+      - uses: crate-ci/typos@v1.16.1
+        with:
+          files: |
+            .
+            .github
+            .vscode

@@ -17,6 +17,7 @@
               nixpkgs-fmt
               dprint
               actionlint
+              typos
             ];
           };
       }

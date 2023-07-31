@@ -12,8 +12,5 @@
         "command": ["nixpkgs-fmt"]
       }
     }
-  },
-  "cSpell.words": [
-    "dprint"
-  ]
+  }
 }
