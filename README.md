@@ -1,5 +1,8 @@
 # action-update-dprint-plugins
 
+**I do NOT recommend to use this action now, because some updating will not work.**\
+**See <https://github.com/dprint/dprint-plugin-prettier/issues/56> for further detail**
+
 [![CI](https://github.com/kachick/action-update-dprint-plugins/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/kachick/action-update-dprint-plugins/actions/workflows/validate.yml?query=branch%3Amain++)
 
 GitHub Action to update [dprint](https://github.com/dprint/dprint) plugins in `dprint.json`
