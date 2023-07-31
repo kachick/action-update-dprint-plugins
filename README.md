@@ -73,19 +73,20 @@ Enable the following options in your repository settings
 
 All options should be specified with string. So true/false should be 'true'/'false'
 
-| name           | default             | options                       | description                                         |
-| -------------- | ------------------- | ----------------------------- | --------------------------------------------------- |
-| base-branch    | (null)              | e.g 'main'                    | The branch into which you want updating PR merged   |
-| github-token   | ${{ github.token }} | e.g '${{ secrets.YOUR_PAT }}' | The token will be used to create PR                 |
-| dprint-version | (null)              | e.g '0.40.1'                  | Specific dprint version to use. Should be specified |
-| config-path    | 'dprint.json'       | e.g 'dprint-ci.json'          | Specific dprint config to use                       |
+| name           | default             | options                       | description                                                                                                                                           |
+| -------------- | ------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| base-branch    | (null)              | e.g 'main'                    | The branch into which you want updating PR merged                                                                                                     |
+| github-token   | ${{ github.token }} | e.g '${{ secrets.YOUR_PAT }}' | The token will be used to create PR                                                                                                                   |
+| dprint-version | (null)              | e.g '0.40.1'                  | Specific dprint version to use. Should be specified                                                                                                   |
+| config-path    | 'dprint.json'       | e.g 'dprint-ci.json'          | Specific dprint config to use                                                                                                                         |
+| fmt            | false               | true/false                    | Run fmt and outputs the result in outputs.fmt if enabled. [It may fail from some reasons](https://github.com/dprint/dprint-plugin-prettier/issues/56) |
 
 ## Outputs
 
-| name   | patterns                                        | description                                                         |
-| ------ | ----------------------------------------------- | ------------------------------------------------------------------- |
-| pr_url | e.g. '`https://github.com/owner/repos/pull/42`' | Sent PR URL                                                         |
-| fmt    | 'true'/'false`                                  | Return true if diff was made in `dprint fmt` after updating plugins |
+| name   | patterns                                        | description                                                                                                       |
+| ------ | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| pr_url | e.g. '`https://github.com/owner/repos/pull/42`' | Sent PR URL                                                                                                       |
+| fmt    | true/false                                      | Return true if diff was made in `dprint fmt` after updating plugins. Can be used only in fmt in inputs is enabled |
 
 ## Motivation
 
