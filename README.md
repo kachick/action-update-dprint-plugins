@@ -39,9 +39,11 @@ jobs:
     timeout-minutes: 15
     steps:
       - id: update-dprint-plugins
-        uses: kachick/action-update-dprint-plugins@v1.0.0
+        uses: kachick/action-update-dprint-plugins@v2.0.0
         with:
           base-branch: 'main'
+          dprint-version: '0.40.1'
+
       # Enable `Allow auto-merge` in your repository settings if you need following steps
       - name: Merge sent PR
         # Checking `dprint fmt` did not make any diff even after updating plugins
@@ -71,12 +73,12 @@ Enable the following options in your repository settings
 
 All options should be specified with string. So true/false should be 'true'/'false'
 
-| name           | default             | options                       | description                                              |
-| -------------- | ------------------- | ----------------------------- | -------------------------------------------------------- |
-| base-branch    | (null)              | e.g 'main'                    | The branch into which you want updating PR merged        |
-| github-token   | ${{ github.token }} | e.g '${{ secrets.YOUR_PAT }}' | The token will be used to create PR                      |
-| dprint-version | (null)              | e.g '0.37.1'                  | Specific dprint version to use . Use latest if not given |
-| config-path    | 'dprint.json'       | e.g 'dprint-ci.json'          | Specific dprint config to use                            |
+| name           | default             | options                       | description                                         |
+| -------------- | ------------------- | ----------------------------- | --------------------------------------------------- |
+| base-branch    | (null)              | e.g 'main'                    | The branch into which you want updating PR merged   |
+| github-token   | ${{ github.token }} | e.g '${{ secrets.YOUR_PAT }}' | The token will be used to create PR                 |
+| dprint-version | (null)              | e.g '0.40.1'                  | Specific dprint version to use. Should be specified |
+| config-path    | 'dprint.json'       | e.g 'dprint-ci.json'          | Specific dprint config to use                       |
 
 ## Outputs
 
