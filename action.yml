@@ -81,7 +81,7 @@ runs:
         fi
       shell: bash
     - id: pr
-      if: ${{ steps.update_plugins.outputs.update == 'true' || steps.fmt.outputs.fmt == 'true' }}
+      if: ${{ steps.update_plugins.outputs.update == 'true' && (inputs.fmt == 'false' || steps.fmt.outputs.fmt == 'true') }}
       run: |
         git push -u origin "${{ steps.setup.outputs.branch }}"
         echo "pr_url=$(gh pr create --fill --base ${{ inputs.base-branch}} --title 'Update dprint plugins' --body 'This PR has been created by https://github.com/kachick/action-update-dprint-plugins')" >> $GITHUB_OUTPUT

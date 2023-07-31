@@ -35,4 +35,4 @@ jobs:
           base-branch: 'main'
           # Keep same version as used in *.nix
           dprint-version: '0.39.1'
-          fmt: true
+          fmt: false
