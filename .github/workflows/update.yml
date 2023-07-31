@@ -1,4 +1,4 @@
-name: Validate
+name: Update
 on:
   push:
     branches: [main]
@@ -11,16 +11,9 @@ on:
       - 'dprint.json'
       - 'README.md'
       - '.vscode/**'
-  pull_request:
-    paths-ignore:
-      - '.github/dependabot.yml'
-      - '.github/workflows/dprint.yml'
-      - '.github/workflows/dependency-review.yml'
-      - '.github/workflows/merge-bot-pr.yml'
-      - '.editorconfig'
-      - 'dprint.json'
-      - 'README.md'
-      - '.vscode/**'
+  schedule:
+    # Run at 17:00 UTC every Monday
+    - cron: '0 17 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -42,3 +35,4 @@ jobs:
           base-branch: 'main'
           # Keep same version as used in *.nix
           dprint-version: '0.39.1'
+          fmt: true
